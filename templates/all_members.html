@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  
+
+        <style>
+          
+       
+            .container-fluid{
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+               
+                display: flex;
+                align-items: stretch;
+            
+           
+                margin: 0;
+                padding: 0;
+                
+            }
+            #first {
+                flex-grow: 1;
+          
+              }
+              #second {
+                flex-grow: 1000;
+               
+            
+              }
+            
+            .mb-4 {
+           margin-bottom: ($spacer * 1.5) !important;
+            }
+           p{
+            font-size: medium;
+           }
+           .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #DDD;
+}
+
+tr:hover {background-color: #D6EEEE;}
+
+           
+      
+        </style>
+
+    </head>
+    <body>
+    	{% load crispy_forms_tags %} 
+
+        <div class=" container-fluid ">
+
+        <div id= "first "  style="background-color: #f0f0f5; width: 18%; height: 100vh; overflow: scroll; ">
+             
+  
+<div class="container">
+  
+  <form method=GET>
+  	<h4>Search by</h4>
+      {{ myFilter.form | crispy }}
+      
+      <input type="submit" value="Submit" class="btn btn-secondary">
+
+        </form>
+        
+
+</div>
+</div>
+        <div id= "second" class="w-75 p-3 mh-100 " style="height: 100 vh; overflow: scroll;">
+            
+              
+  <br>
+
+
+            <!-- <div class="row mb-4">
+            	{% for x in page_obj %}
+                <div class="col-sm-6 col-lg-3">
+                  <div class="card h-100">
+                    <div class="card-body" style="margin-bottom: 10px">
+                    	<img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049__340.png" width="70" height="70  " alt="" class="center";>
+                    	<br>
+                      <h5 style="text-align: center;" class="card-title">{{ x.first_name }}</h5>
+                      <p style="text-align: center;" class="card-text">{{ x.designation }}</p>
+                      <hr>
+                      <a href="details/{{ x.username }}" >View Details</a>
+                    </div>
+                  </div><br>
+                </div><br>
+                {% empty %}
+    <h2 style="text-align: center">No Results Found</h2>
+    <br>
+    <br><br>
+			{% endfor %}
+              </div> -->
+              <h3 style="text-align: center;">Search</h3>
+              <br>
+              <table>
+              	
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Company</th>
+    <th>Designation</th>
+    <th>View</th>
+  </tr>
+  {% for x in page_obj %}
+  <tr>
+    <td>{{ x.first_name }}</td>
+    <td>{{ x.last_name }}</td>
+    <td>{{ x.company }}</td>
+    <td>{{ x.designation }}</td>
+    <td><a href="details/{{ x.username }}" >View Details</a></td>
+    {% empty %}
+    <h2 style="text-align: center">No Results Found</h2>
+  </tr>
+ 
+    
+			{% endfor %}
+</table>
+<br>
+            
+<div class="pagination">
+	<br>
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}&amp;{{ querystring }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&amp;{{ querystring }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&amp;{{ querystring }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+  </div>
+
+    </body>
+
+</html>
